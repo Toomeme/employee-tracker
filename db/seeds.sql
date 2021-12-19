@@ -1,33 +1,27 @@
-SELECT role.id, role.title, role.salary FROM role ORDER BY role.id;
-SELECT role.id, role.title FROM role ORDER BY role.id;
-SELECT * FROM employee;
-
-SELECT department.id, department.name FROM department ORDER BY department.id;
-
-SELECT department.name AS department, role.title, employee.id, employee.first_name, employee.last_name
-    FROM employee
-    LEFT JOIN role ON (role.id = employee.role_id)
-    LEFT JOIN department ON (department.id = role.department_id)
-    ORDER BY department.name;
-    
-SELECT CONCAT(manager.first_name, ' ', manager.last_name) AS manager, department.name AS department, employee.id, employee.first_name, employee.last_name, role.title
-  FROM employee
-  LEFT JOIN employee manager on manager.id = employee.manager_id
-  INNER JOIN role ON (role.id = employee.role_id && employee.manager_id != 'NULL')
-  INNER JOIN department ON (department.id = role.department_id)
-  ORDER BY manager;
-  
-SELECT role.title, employee.id, employee.first_name, employee.last_name, department.name AS department
-    FROM employee
-    LEFT JOIN role ON (role.id = employee.role_id)
-    LEFT JOIN department ON (department.id = role.department_id)
-    ORDER BY role.title;
-
-SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager
-  FROM employee
-  LEFT JOIN employee manager on manager.id = employee.manager_id
-  INNER JOIN role ON (role.id = employee.role_id)
-  INNER JOIN department ON (department.id = role.department_id)
-  ORDER BY employee.id;
-  
-SELECT first_name, last_name, role_id FROM employee 	WHERE employee.id = 4;
+INSERT INTO department (department_name)
+VALUES
+    ('Sales'),
+    ('Support'),
+    ('Marketing'),
+    ('Executive');
+INSERT INTO roles (title, salary, department_id)
+VALUES
+    ('Big Manager', 12000, 1),
+    ('Assistant Manager', 4000, 1),
+    ('Big Sales', 16000, 2),
+    ('Sales', 8000, 2),
+    ('Big Support', 13000, 3),
+    ('Support', 7000, 3),
+    ('Big CEO', 62000, 4),
+    ('CEO Assistant', 260000, 4);
+INSERT INTO employees
+    (first_name, last_name, role_id, manager_id)
+VALUES
+    ('Sleve', 'McDichael', 1, NULL),
+    ('Onson', 'Sweemey', 2, 1),
+    ('Darryl', 'Archideld', 3, NULL),
+    ('Anatoli', 'Smorin', 4, 3),
+    ('Rey', 'McSriff', 5, NULL),
+    ('Glenallen', 'Mixon', 6, 5),
+    ('Mario', 'McRlwain', 7, NULL),
+    ('Raul', 'Chamgerlain', 8, 7);
